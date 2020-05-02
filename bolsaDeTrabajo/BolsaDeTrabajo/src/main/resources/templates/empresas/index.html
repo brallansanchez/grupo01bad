@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th= "http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Empresas</title>
+</head>
+<body>
+	<h1 th:if=${empresas.isEmpty()}>No hay registros!</h1>
+	<table th:if=${!empresas.isEmpty()}>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre empresa</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="empresa: ${empresas}">
+				<td th:text="${empresa.idEmpresa}"></td>
+				<td th:text="${empresa.nombreEmpresa}">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
