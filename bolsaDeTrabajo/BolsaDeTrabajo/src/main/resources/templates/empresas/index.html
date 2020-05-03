@@ -71,10 +71,14 @@
 												data-offset="10,20">Acciones</button>
 											<div class="dropdown-menu"
 												aria-labelledby="dropdownMenuOffset">
-												<a class="dropdown-item" href="#">Consultar</a> 
-												<a class="dropdown-item" href="#">Editar</a>
-												<a class="dropdown-item" href="#">Eliminar</a>
+												<a class="dropdown-item" data-toggle="modal" data-target="#modal_view">
+													Consultar
+												</a> 
+												<a class="dropdown-item" data-toggle="modal" data-target="#modal_edit">
+													Editar
+												</a>
 											</div>
+											
 										</div>
 									</td>
 								</tr>
@@ -86,7 +90,10 @@
 			<!-- Fin del contenido -->
 		</div>
 	</div>
+	<div th:replace="fragments/empresa_fragments/empresa_modal.html :: modal('modal_view','Consultar Empresa','')"></div>
+	<div th:replace="fragments/empresa_fragments/empresa_modal.html :: modal('modal_edit','Editar Empresa','Actualizar cambios')"></div>
 	<div th:replace="fragments/admin_fragments.html :: scripts"></div>
+	<!--
 	<script th:src="@{/js/extention/choices.js}"></script>
 	<script>
 		const customSelects = document.querySelectorAll("select");
@@ -104,5 +111,10 @@
 			}
 		});
 	</script>
+	 -->
+	<!-- Button trigger modal 
+	<button type="button" class="btn btn-primary" data-toggle="modal"
+		data-target="#exampleModalScrollable">Launch demo modal</button>
+	-->
 </body>
 </html>
