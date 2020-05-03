@@ -71,7 +71,7 @@
 												data-offset="10,20">Acciones</button>
 											<div class="dropdown-menu"
 												aria-labelledby="dropdownMenuOffset">
-												<a class="dropdown-item" data-toggle="modal" data-target="#modal_view">
+												<a class="dropdown-item" data-toggle="modal" th:onclick="'getEmpresaById(\'' + ${empresa.idEmpresa} + '\');'" data-target="#modal_view">
 													Consultar
 												</a> 
 												<a class="dropdown-item" data-toggle="modal" data-target="#modal_edit">

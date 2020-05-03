@@ -25,7 +25,7 @@ public class Empresa implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Basic(optional = false)
 	@Column(name = "ID_EMPRESA")
-	private Integer idEmpresa;
+	private Long idEmpresa;
 	
 	@Size(max = 150)
 	@Basic(optional = false)
@@ -55,11 +55,11 @@ public class Empresa implements Serializable{
 		
 	}
 
-	public Integer getIdEmpresa() {
+	public Long getIdEmpresa() {
 		return idEmpresa;
 	}
 
-	public void setIdEmpresa(Integer idEmpresa) {
+	public void setIdEmpresa(Long idEmpresa) {
 		this.idEmpresa = idEmpresa;
 	}
 
