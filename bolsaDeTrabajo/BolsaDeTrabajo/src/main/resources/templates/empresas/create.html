@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th ="http://www.thymeleaf.org">
-<head th:replace = "fragments/admin_fragment :: head">
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/admin_fragments.html :: head">
 </head>
 <body>
 	<div class="d-flex" id="wrapper">
@@ -14,10 +14,38 @@
 
 			<!-- Contenido -->
 			<div class="container-fluid">
-				
+				<form th:action="@{/empresas/create}" method="post">
+					<div class="form-group">
+						<label for="nombre_empresa">Nombre Empresa</label> <input
+							type="text" class="form-control" id="nombre_empresa" name="nombre_empresa"
+							placeholder="Ej: Coca-Cola">
+					</div>
+					<div class="form-group">
+						<label for="email">E-mail</label> <input
+							type="email" class="form-control" id="email" name="email">
+					</div>
+					<div class="form-group">
+						<label for="telefono">Teléfono</label><input
+							type="tel" class="form-control" id="telefono" name="telefono">
+					</div>
+					<div class="form-group">
+						<label for="direccion">Dirección</label>
+						<textarea class="form-control" id="direccion" name="direccion"
+							rows="3" cols="70"></textarea>
+					</div>
+					
+					<div class="form-group">
+						<label for="descripcion">Descripción</label>
+						<textarea class="form-control" id="descripcion" name="descripcion"
+							rows="3" cols="70"></textarea>
+					</div>
+					<div>
+						<input type="submit" class="btn btn-primary" value="Guardar">
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	
+	<div th:replace="fragments/admin_fragments.html :: scripts"></div>
 </body>
 </html>

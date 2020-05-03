@@ -36,7 +36,7 @@
 						</div>
 						<hr />
 						<div>
-							<a type="button" th:ref="@{/empresas/crear}" class="btn btn-primary" id="btnAdd" style="color:white">Agregar</a>
+							<a type="button" th:href="@{/empresas/crear}" class="btn btn-primary" id="btnAdd" style="color:white">Agregar</a>
 						</div>
 						<hr />
 						<h1 th:if=${empresas.isEmpty()}>No hay registros!</h1>

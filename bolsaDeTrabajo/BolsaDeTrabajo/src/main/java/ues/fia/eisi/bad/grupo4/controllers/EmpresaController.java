@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +41,14 @@ public class EmpresaController {
 	
 	@GetMapping("/crear")
 	public String onCreateEmpresa(Model model) {
-		return "/empresas/create";
+		model.addAttribute("empresa", new Empresa());
+		return "empresas/create";
+	}
+	
+	@PostMapping("/create")
+	public String onSaveRecord(@ModelAttribute Empresa empresa){
+		
+		return "redirect:/empresas/";
 	}
 	
 	@GetMapping("/")
