@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th ="http://www.thymeleaf.org">
+<head th:replace = "fragments/admin_fragment :: head">
+</head>
+<body>
+	<div class="d-flex" id="wrapper">
+		<!-- Insertando sidebar -->
+		<div th:replace="fragments/admin_fragments.html :: sidebar"></div>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<!-- Insertando navbar -->
+			<nav th:replace="fragments/admin_fragments.html :: navbar"></nav>
+
+			<!-- Contenido -->
+			<div class="container-fluid">
+				
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

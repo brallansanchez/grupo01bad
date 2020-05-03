@@ -35,20 +35,20 @@
 						</div>
 						<div class="row">
 							<div class="col-lg-4 col-md-4 col-sm-12">
-								<input class="form-control" type="text" name="nombre_empresa" id="nombre_empresa" />
+								<input class="form-control" type="text" name="nombre_empresa" th:id="${'nombre_empresa_'+id}" />
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-12">
-								<input class="form-control" type="email" name="email_empresa" id="email_empresa" />
+								<input class="form-control" type="email" name="email_empresa" th:id="${'email_empresa_'+id}" />
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-12">
-								<input class="form-control" type="tel" name="telefono_empresa" id="telefono_empresa" />
+								<input class="form-control" type="tel" name="telefono_empresa" th:id="${'telefono_empresa_'+id}" />
 							</div>
 						</div>
 						<br/>
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label for="direccion_empresa">Dirección</label>
-								<textarea rows="3" cols="70" name="direccion_empresa" id="direccion_empresa"
+								<textarea rows="3" cols="70" name="direccion_empresa" th:id="${'direccion_empresa_'+id}"
 										  class="form-control">
 								</textarea>
 							</div>
@@ -57,7 +57,7 @@
 						<div class="row">
 							<div class="col-lg-12 col-md-12 col-sm-12">
 								<label for="descripcion_empresa">Descripción</label>
-								<textarea rows="3" cols="70" name="descripcion_empresa" id="descripcion_empresa"
+								<textarea rows="3" cols="70" name="descripcion_empresa" th:id="${'descripcion_empresa_'+id}"
 										  class="form-control">
 								</textarea>
 							</div>
@@ -67,7 +67,7 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Cerrar</button>
-					<button type="button" th:if="${!btnValue.equals('')}" th:text="${btnValue}" class="btn btn-primary"></button>
+					<button type="button" th:if="${!btnValue.equals('')}" th:onclick="'onUpdateEmpresa()'" th:text="${btnValue}" class="btn btn-primary"></button>
 				</div>
 			</div>
 		</div>
