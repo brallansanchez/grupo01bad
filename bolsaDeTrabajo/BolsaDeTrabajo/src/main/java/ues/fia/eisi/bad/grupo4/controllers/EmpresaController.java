@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ues.fia.eisi.bad.grupo4.models.entities.Empresa;
 import ues.fia.eisi.bad.grupo4.services.DAO.GenericDao;
@@ -41,8 +42,8 @@ public class EmpresaController {
 	}
 	
 	@GetMapping(value="/ver/{id}")
-	public String onViewEmpresa(@PathVariable Long id, Model model) {
-		return this.getOneEmpresa(id).toString();
+	public @ResponseBody Empresa onViewEmpresa(@PathVariable Long id, Model model) {
+		return this.getOneEmpresa(id);
 	}	
 	
 	//-------------------------------------------------------------------------------------------------------------------
