@@ -22,7 +22,8 @@ public class Empresa implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "id_sequence")
+	@SequenceGenerator(name = "id_sequence", sequenceName="SEQ_EMPRESA",allocationSize = 1)
 	@Basic(optional = false)
 	@Column(name = "ID_EMPRESA")
 	private Long idEmpresa;

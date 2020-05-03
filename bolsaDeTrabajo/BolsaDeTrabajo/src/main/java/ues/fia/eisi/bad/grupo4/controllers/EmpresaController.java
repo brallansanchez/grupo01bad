@@ -48,7 +48,21 @@ public class EmpresaController {
 	@PostMapping("/create")
 	public String onSaveRecord(@ModelAttribute Empresa empresa){
 		
-		return "redirect:/empresas/";
+		if(
+				empresa.getNombreEmpresa()    == null || empresa.getNombreEmpresa().equals("") 		||
+				empresa.getDireccionEmpresa() == null || empresa.getDireccionEmpresa().equals("")   ||
+				empresa.getEmailEmpresa()     == null || empresa.getEmailEmpresa().equals("")		||
+				empresa.getTelefonoEmpresa()  == null || empresa.getTelefonoEmpresa().equals("")
+				
+		  )
+		{
+			return "empresas/create";
+		} else {
+			System.out.println("entro en insertar");
+			service.create(empresa);
+			return "redirect:/empresas/";
+		}
+		
 	}
 	
 	@GetMapping("/")
