@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/admin_fragments.html :: head">
+</head>
+<body>
+	<div class="d-flex" id="wrapper">
+		<!-- Insertando sidebar -->
+		<div th:replace="fragments/admin_fragments.html :: sidebar"></div>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<!-- Insertando navbar -->
+			<nav th:replace="fragments/admin_fragments.html :: navbar"></nav>
+
+			<!-- Contenido -->
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center;">
+						<h3> Tu informacion de Perfil</h3>
+					</div>
+				</div>
+				
+				<hr/>
+				<div class="s009">
+				<form  method="post">
+				
+					<div align="center">
+					<img src="/images/usuario.png" width="200" height="200">
+					 </div>
+      			   	
+					<div class="form-group">
+						<label for="nombre_persona">Nombre</label> <input
+							type="text" class="form-control" id="nombre_persona" name="nombre_persona" placeholder="Ingrese su Nombre">
+					</div>
+					
+					<div class="form-group">
+						<label for="apellido_persona">Apellido</label> <input
+							type="text" class="form-control" id="apellido_persona" name="apellido_persona" placeholder="Ingrese su Apellido">
+					</div>
+					
+					<div class="form-group">
+						<label for="email">E-mail</label> 
+						<input type="email" class="form-control" id="email" name="email" placeholder="Ingrese su email">
+					</div>
+					
+					<div class="form-group">
+						<label for="fechaNacimiento_persona">Fecha de Nacimiento</label> <input
+							type="date" class="form-control" id="fechaNacimiento_persona" name="fechaNacimiento_persona" placeholder="Ingrese su Dia de Nacimiento">
+					</div>
+					
+					<div class="form-group">
+						<label for="dui_persona">DUI</label> <input
+							type="text" class="form-control" id="dui_persona" name="dui_persona" placeholder="Ingrese su Numero de DUI (9999999-9)">
+					</div>
+					
+					<div class="form-group">
+						<label for="nit_persona">NIT</label> <input
+							type="text" class="form-control" id="nit_persona" name="nit_persona" placeholder="Ingrese su Numero de NIT (9999-9999-9999-9)">
+					</div>
+					
+					<div class="form-group">
+						<label for="pasaporte_persona">Pasaporte</label> <input
+							type="text" class="form-control" id="pasaporte_persona" name="pasaporte_persona" placeholder="Ingrese su Numero de pasaporte" >
+					</div>
+					
+					<div class="form-group">
+						<label for="nup_persona">NUP</label> <input
+							type="text" class="form-control" id="NUP_persona" name="NUP_persona" placeholder="Ingrese su NUP">
+					</div>
+					
+					
+					<div class="form-group">
+						<label for="direccion">Dirección</label>
+						<textarea class="form-control" id="direccion" name="direccion" rows="3" cols="70" placeholder="Ingrese de Direccion">
+						</textarea>
+					</div>
+					
+					<div class="form-group">
+						<label for="telefono">Teléfono</label>
+						<input type="tel" class="form-control" name="telefono" placeholder="Ingrese su Numero de Telefono">
+					</div>
+					
+				
+					<div>
+						<input type="submit" class="btn btn-primary" value="Editar">
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/admin_fragments.html :: scripts"></div>
+</body>
+</html>
