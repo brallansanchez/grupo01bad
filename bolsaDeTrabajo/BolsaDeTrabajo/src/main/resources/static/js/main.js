@@ -73,3 +73,27 @@ function onUpdateEmpresa(){
 		);
 	}
 }
+
+function onSendCurriculo(){
+	persona = {
+			nombre: 	$("#firstname").val(),
+			apellido: 	$("#lastname").val(),
+			email: 		$("#email").val(),
+			telefono: 	$("#telefono").val(),
+			direccion: 	$("#direccion").val(),
+			fechaNac:	$("#date_of_birth").val(),
+			dui:		$("#dui").val(),
+			nit:		$("#nit").val(),
+			pasaporte:	$("#pasaporte").val(),
+			nup:		$("#nup").val()
+	};
+	
+	$.ajax({
+		url: '/curriculo/create',
+		type: 'POST',
+		data: persona,
+		success: function(res){
+			console.log(res);
+		}
+	});
+}
