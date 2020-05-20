@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="modal_view_profile"
+		class="modal fade modal-mini modal-primary" id="myModal2"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" style="max-width: 900px">
+			<div class="modal-content">
+				<div class="modal-header justify-content-center">
+					<div class="modal-profile">
+						<i class="nc-icon nc-single-copy-04"></i>
+					</div>
+				</div>
+				<div class="modal-body text-center">
+					<div class="row">
+						<div class="col-md-12">
+							<form>
+								<div class="row">
+									<h4 id="encabezado"></h4>
+								</div>
+								<hr/>
+								<div class="row">
+									<div class="col-md-4 pr-1">
+										<div class="form-group">
+											<label>Área Empresarial</label> <input type="text"
+												class="form-control" readonly="" id="area">
+										</div>
+									</div>
+									<div class="col-md-4 px-1">
+										<div class="form-group">
+											<label>Cargo Solicitado</label> <input type="text" id="cargo"
+												class="form-control" readonly=""
+												placeholder="Desarrollador Web">
+										</div>
+									</div>
+									<div class="col-md-4 pl-1">
+										<div class="form-group">
+											<label>Rango Salarial</label> <input type="text" id="rango"
+												class="form-control" readonly="">
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>Ubicación</label> <input id="ubicacion" readonly=""
+												class="form-control" type="text">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>Rango Experiencia</label> <input id="rangoExp"
+												readonly="" class="form-control" type="text">
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label>Tipo Contratación</label> <input id="tipoContrato"
+												readonly="" class="form-control" type="text">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Sexo Persona</label>
+											<input type="text" id="genero" class="form-control" readonly="">
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>Rango Edad</label>
+											<input id="rangoEdad" type="text" class="form-control" readonly="">
+										</div>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-link btn-simple"
+						data-dismiss="modal">Cerrar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

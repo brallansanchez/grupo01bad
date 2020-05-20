@@ -20,8 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 //import org.springframework.web.bind.annotation.RequestParam;
 //import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
-import ues.fia.eisi.bad.grupo4.models.entities.Empresa;
 import ues.fia.eisi.bad.grupo4.models.entities.Persona;
 import ues.fia.eisi.bad.grupo4.services.DAO.GenericDao;
 
@@ -49,9 +50,9 @@ public class PersonaController {
 		return "personas/create";
 	}
 	
-			
 	@GetMapping("/")
 	public String index(Model model) {
+		System.out.println("entro al metodo de personas");
 		model.addAttribute("personas", this.getAllRecords());
 		return "personas/index";
 	}

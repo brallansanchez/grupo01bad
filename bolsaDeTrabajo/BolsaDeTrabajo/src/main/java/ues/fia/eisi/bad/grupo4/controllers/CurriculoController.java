@@ -2,18 +2,25 @@ package ues.fia.eisi.bad.grupo4.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
 
 import ues.fia.eisi.bad.grupo4.models.entities.Empresa;
+import ues.fia.eisi.bad.grupo4.models.entities.FormacionAcademica;
 import ues.fia.eisi.bad.grupo4.models.entities.Persona;
+import ues.fia.eisi.bad.grupo4.models.entities.TipoFormacion;
+import ues.fia.eisi.bad.grupo4.models.entities.TipoInstitucion;
 import ues.fia.eisi.bad.grupo4.services.DAO.GenericDao;
 
 @Controller
@@ -22,18 +29,36 @@ public class CurriculoController {
 	
 	
 	
-	private GenericDao<Persona> service;
-	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-mm-yyyy");
+	private GenericDao<FormacionAcademica> service;
+	private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	
+	private List<TipoFormacion> tiposDeFormacion;
+	private List<TipoInstitucion> tiposDeInstitucion;
 	
 	@Autowired
-	public void setDao(GenericDao<Persona> daoToSet) {
+	public void setDao(GenericDao<FormacionAcademica> daoToSet) {
 		service = daoToSet;
-		service.setClazz(Persona.class);
+		service.setClazz(FormacionAcademica.class);
 	}
 	
 	@GetMapping("/create")
-	public String index() {
+	public String index(Model model) {
+		String jpqlTipoFormacion = "from TipoFormacion";
+		tiposDeFormacion = (List<TipoFormacion>) service.jpqlQuery(jpqlTipoFormacion);
+		model.addAttribute("tipos", tiposDeFormacion);
+		
+		String jpqlTipoInstitucion = "from TipoInstitucion";
+		tiposDeInstitucion = (List<TipoInstitucion>) service.jpqlQuery(jpqlTipoInstitucion);
+		model.addAttribute("instituciones",tiposDeInstitucion);
 		return "/curriculo/index";
+	}
+	
+	@PostMapping("/array")
+	public @ResponseBody String onArray(@RequestBody List<Map<String,String>> params) {
+		Map objeto = params.get(0);
+		String titulo = (String) objeto.get("titulo");
+		System.out.println(titulo);
+		return "exito";
 	}
 	
 	@PostMapping("/create")
@@ -50,7 +75,7 @@ public class CurriculoController {
 		persona.setPasaportePersona(params.get("pasaporte"));
 		persona.setTelefonoPersona(params.get("telefono"));
 		
-		this.service.create(persona);
+		this.service.createAny(persona);
 		return "exito";
 	}
 	

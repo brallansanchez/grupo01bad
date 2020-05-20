@@ -81,9 +81,9 @@ $(document).ready(function(){
         	if(!$valid) {
         		$validator.focusInvalid();
         		return false;
-        	} else{
+        	} /*else{
         		onSendCurriculo();
-        	}
+        	}*/
         },
 
         onInit : function(tab, navigation, index){

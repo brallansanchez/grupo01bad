@@ -14,46 +14,72 @@
 
 			<!-- Contenido -->
 			<div class="container-fluid">
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12" style="text-align:center;">
-						<h3>Registro de empresa</h3>
+
+				<div
+					style="box-shadow: 5px 5px 8px 9px #ccc; width: 60%; margin-left: 20%; margin-top: 3%;
+					background-color:PaleGoldenRod">
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12"
+							style="text-align: center;">
+							<h4>Registro de empresa</h4>
+						</div>
 					</div>
+					<hr />
+					<fieldset
+						style="margin-left: 10%; margin-right: 10%; width: 80%; margin-top: 5%; margin-bottom: 5%;">
+						<form th:action="@{/empresas/create}" th:object="${empresa}"
+							method="post" style="margin: 2%;">
+							<div
+								style="background-color: Lavender; text-align: center; box-shadow: 5px 5px 8px 9px #ccc; margin-bottom: 3%;"
+								th:if="${messages}">
+								<span th:text="${messages}"></span>
+							</div>
+
+							<div class="form-group">
+								<label for="nombre_empresa">Nombre Empresa</label> <input
+									type="text" class="form-control" id="nombre_empresa"
+									name="nombre_empresa" placeholder="Ej: Coca-Cola"
+									th:field="*{nombreEmpresa}">
+							</div>
+							<div class="form-group">
+								<label for="email">E-mail</label> <input type="email"
+									class="form-control" id="email" name="email"
+									th:field="*{emailEmpresa}">
+							</div>
+							<div class="form-group">
+								<label for="telefono">Teléfono</label><input type="tel"
+									class="form-control" id="telefono" name="telefono"
+									th:field="*{telefonoEmpresa}">
+							</div>
+							<div class="form-group">
+								<label for="direccion">Dirección</label>
+								<textarea class="form-control" id="direccion" name="direccion"
+									rows="3" cols="70" th:field="*{direccionEmpresa}">
+						</textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="descripcion">Descripción</label>
+								<textarea class="form-control" id="descripcion"
+									name="descripcion" rows="3" cols="70"
+									th:field="*{descripcionEmpresa}">
+						</textarea>
+							</div>
+							<div>
+								<input type="submit" class="btn btn-primary" value="Guardar">
+							</div>
+						</form>
+					</fieldset>
 				</div>
-				<hr/>
-				<form th:action="@{/empresas/create}" th:object="${empresa}" method="post">
-					<div class="form-group">
-						<label for="nombre_empresa">Nombre Empresa</label> <input
-							type="text" class="form-control" id="nombre_empresa" name="nombre_empresa"
-							placeholder="Ej: Coca-Cola" th:field="*{nombreEmpresa}">
-					</div>
-					<div class="form-group">
-						<label for="email">E-mail</label> <input 
-							type="email" class="form-control" id="email" name="email" th:field="*{emailEmpresa}">
-					</div>
-					<div class="form-group">
-						<label for="telefono">Teléfono</label><input 
-							type="tel" class="form-control" id="telefono" name="telefono" th:field="*{telefonoEmpresa}">
-					</div>
-					<div class="form-group">
-						<label for="direccion">Dirección</label>
-						<textarea class="form-control" id="direccion" name="direccion"
-								  rows="3" cols="70" th:field="*{direccionEmpresa}">
-						</textarea>
-					</div>
-					
-					<div class="form-group">
-						<label for="descripcion">Descripción</label>
-						<textarea class="form-control" id="descripcion" name="descripcion"
-								  rows="3" cols="70" th:field="*{descripcionEmpresa}">
-						</textarea>
-					</div>
-					<div>
-						<input type="submit" class="btn btn-primary" value="Guardar">
-					</div>
-				</form>
 			</div>
 		</div>
 	</div>
 	<div th:replace="fragments/admin_fragments.html :: scripts"></div>
 </body>
+<script type="text/javascript" th:src="@{/js/jquery.mask.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#telefono").mask("0000-0000");
+	})
+</script>
 </html>

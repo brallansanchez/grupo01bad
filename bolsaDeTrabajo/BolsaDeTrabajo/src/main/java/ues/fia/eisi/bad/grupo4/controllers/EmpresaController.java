@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.annotation.RequestScope;
+import org.springframework.web.context.annotation.SessionScope;
 
 import ues.fia.eisi.bad.grupo4.models.entities.Empresa;
 import ues.fia.eisi.bad.grupo4.services.DAO.GenericDao;
@@ -42,11 +44,11 @@ public class EmpresaController {
 	@GetMapping("/crear")
 	public String onCreateEmpresa(Model model) {
 		model.addAttribute("empresa", new Empresa());
-		return "empresas/create";
+		return "empresas/createEmpresa";
 	}
 	
 	@PostMapping("/create")
-	public String onSaveRecord(@ModelAttribute Empresa empresa){
+	public String onSaveRecord(@ModelAttribute Empresa empresa,Model model){
 		
 		if(
 				empresa.getNombreEmpresa()    == null || empresa.getNombreEmpresa().equals("") 		||
@@ -56,9 +58,9 @@ public class EmpresaController {
 				
 		  )
 		{
+			model.addAttribute("messages","Tiene campos vacíos");
 			return "empresas/create";
 		} else {
-			System.out.println("entro en insertar");
 			service.create(empresa);
 			return "redirect:/empresas/";
 		}
@@ -68,7 +70,7 @@ public class EmpresaController {
 	@GetMapping("/")
 	public String index(Model model) {
 		model.addAttribute("empresas", this.getAllRecords());
-		return "empresas/index";
+		return "empresas/empresas";
 	}
 	
 	@GetMapping(value="/ver/{id}")

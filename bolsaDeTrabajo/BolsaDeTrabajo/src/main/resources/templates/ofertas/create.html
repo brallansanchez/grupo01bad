@@ -1,0 +1,170 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/empresa_layout.html :: head">
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="fragments/empresa_layout.html :: sidebar"></div>
+		<div class="main-panel">
+			<nav th:replace="fragments/empresa_layout.html :: navbar"></nav>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="card">
+						<div class="card-header">
+							<h4 class="card-title">Registro de Oferta Laboral</h4>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-md-12">
+									<form>
+										<div class="row">
+											<div class="col-md-5 pr-1">
+												<div class="form-group">
+													<label>Fecha expiración</label> <input type="date"
+														class="form-control" id="fechaExp">
+												</div>
+											</div>
+											<div class="col-md-3 px-1">
+												<div class="form-group">
+													<label>Titulo Oferta</label> <input type="text" id="titulo"
+														class="form-control" placeholder="Desarrollador Web">
+												</div>
+											</div>
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Categoría Puesto Laboral</label> <select
+														id="categoriaPuesto" class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="categoria: ${categorias}"
+															th:text="${categoria.nombreCategoriaPuesto}"
+															th:value="${categoria.idCategoriaPuesto}"></option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group">
+													<label>Descripción Oferta</label>
+													<textarea id="descripcion" class="form-control" cols="70"
+														rows="5"></textarea>
+												</div>
+											</div>
+										</div>
+										<hr />
+
+										<h4>Perfil Deseado</h4>
+										<div class="row">
+											<div class="col-md-4 pr-1">
+												<div class="form-group">
+													<label>Área del Cargo</label> <input id="areaCargo"
+														type="text" class="form-control"
+														placeholder="Ejemplo: Depto. Ventas">
+												</div>
+											</div>
+											<div class="col-md-4 px-1">
+												<div class="form-group">
+													<label>Cargo Solicitado</label> <input id="cargo"
+														type="text" class="form-control" placeholder="Vendedor">
+												</div>
+											</div>
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Rango Salarial</label> <input id="rangoSalarial"
+														type="text" class="form-control"
+														placeholder="Ejemplo: $350.00 - $600.00">
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>País origen</label> <select
+														th:onchange="'onGetRegiones()'" id="selectedCountry"
+														class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="pais :${paises}"
+															th:text="${pais.nombrePais}" th:value="${pais.idPais}">
+														</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label id="location">Ubicación del puesto</label>
+													<!-- Acá se inserta el campo select dependiendo del país seleccionado -->
+												</div>
+											</div>
+
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Rango de experiencia</label> <select id="rangoExp"
+														class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="rango:${rangoExp}"
+															th:text="${rango.rangoExperiencia}"
+															th:value="${rango.idRangoExperiencia}"></option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Tipo de Contrato</label> <select id="tipoContrato"
+														class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="contrato :${contratos}"
+															th:text="${contrato.nombreTipoContrato}"
+															th:value="${contrato.idTipoContrato}"></option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Sexo</label> <select id="sexoPersona"
+														class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="genero :${generos}"
+															th:value="${genero.idSexoPersona}"
+															th:switch="${genero.sexoPersona}">
+															<span th:case="'F'">Femenino</span> <span th:case="'M'">Masculino</span>
+															<span th:case="'I'">Indiferente</span>
+														</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="col-md-4 pl-1">
+												<div class="form-group">
+													<label>Rango Edad</label> <select id="rangoEdad"
+														class="form-control">
+														<option value="0">Seleccione...</option>
+														<option th:each="rango :${rangoEdades}"
+															th:text="${rango.rangoEdad}"
+															th:value="${rango.idRangoEdad}"></option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<button type="button" th:onclick="'onCreateOfertaLaboral()'"
+											class="btn btn-info btn-fill pull-right">Guardar</button>
+										<div class="clearfix"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="fragments/empresa_layout.html :: footer"></footer>
+		</div>
+	</div>
+</body>
+<div th:replace="fragments/empresa_layout.html :: scripts"></div>
+<script type="text/javascript" th:src="@{/js/main.js}"></script>
+</html>
