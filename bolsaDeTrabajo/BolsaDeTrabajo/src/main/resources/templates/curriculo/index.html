@@ -21,6 +21,13 @@
 <!-- CSS Files -->
 <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
 <link th:href="@{/css/gsdk-bootstrap-wizard.css}" rel="stylesheet" />
+<style type="text/css">
+	.back-color-checked{
+		background-color: LightGray !important;
+	}
+}
+	
+</style>
 </head>
 
 <body>
@@ -181,7 +188,7 @@
 															</table>
 														</div>
 													</div>
-													
+
 													<div id="aux" class="row">
 														<div class="col-md-4">
 															<div class="form-group">
@@ -223,8 +230,9 @@
 														</div>
 														<div class="col-md-6">
 															<div class="form-group">
-																<label>Teléfono</label> <input type="tel"
-																	class="form-control" name="telefono_form" id="telefono_form">
+																<label>Teléfono</label> <input type="text"
+																	class="form-control" name="telefono_form"
+																	id="telefono_form">
 															</div>
 														</div>
 
@@ -252,64 +260,237 @@
 														</div>
 													</div>
 												</form>
-												<hr>
-												
-													<div class="row">
-														<h4 class="info-text">...</h4>
-														<hr />
-														<div class="col-md-4">
-															<div class="form-group"></div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group"></div>
-														</div>
-														<div class="col-md-4">
-															<div class="form-group"></div>
+
+
+												<div class="col-md-12">
+													<hr>
+													<h4 class="info-text">Redes Sociales</h4>
+													<hr />
+													<div th:each="red: ${redes}" class="col-md-6">
+														<div class="form-group">
+															<label th:text="${red.nombreRedSocail}"></label> <input
+																th:id="${red.nombreRedSocail}"
+																th:name="${red.nombreRedSocail}"
+																placeholder="Coloque la url de su perfil"
+																class="form-control" type="text" />
 														</div>
 													</div>
-												
+												</div>
+
+
+												<div class="col-md-12">
+													<div class="row">
+														<hr />
+														<h4 class="info-text">Logros Personales</h4>
+														<hr />
+														<div id="tabla_logros" style="display: none"
+															class="col-md-12">
+															<div class="col-md-12">
+																<table class="table table-striped">
+																	<thead>
+																		<tr>
+																			<th>Logro Obtenido</th>
+																			<th>Fecha Titulación</th>
+																			<th>Acciones</th>
+																		</tr>
+																	</thead>
+																	<tbody id="auxBodyLogro">
+
+																	</tbody>
+																</table>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Logro</label> <input type="text"
+																	class="form-control" id="logro" />
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Fecha</label> <input type="date"
+																	class="form-control" id="fechaLogro" />
+															</div>
+														</div>
+														<div class="col-md-12">
+															<div class="form-group">
+																<label>Descripción</label>
+																<textarea rows="3" cols="70" id="descripcionLogro"
+																	class="form-control"></textarea>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<button id="onAdd" th:onclick="addLogro(event)"
+																class="btn btn-default" style="float: right;">Agregar</button>
+														</div>
+													</div>
+												</div>
+												<hr>
+												<div class="col-md-12">
+													<div class="row">
+														<hr />
+														<h4 class="info-text">Libros o artículos publicados</h4>
+														<hr />
+														<div id="tabla_libros" style="display: none"
+															class="col-md-12">
+															<div class="col-md-12">
+																<table class="table table-striped">
+																	<thead>
+																		<tr>
+																			<th>Título</th>
+																			<th>Fecha Publicación</th>
+																			<th>Acciones</th>
+																		</tr>
+																	</thead>
+																	<tbody id="auxBodyLibros">
+
+																	</tbody>
+																</table>
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Título</label> <input type="text"
+																	class="form-control" id="titulo_libro" />
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Fecha Publicación</label> <input type="date"
+																	class="form-control" id="fechaLibro" />
+															</div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group">
+																<label>Lugar Publicación</label> <input type="place"
+																	class="form-control" id="lugarLibro" />
+															</div>
+														</div>
+														<div class="col-md-6" id="auxLibro">
+															<div class="form-group">
+																<label>Tipo de documento</label> <select id="tipo_doc"
+																	name="tipo_doc" class="form-control"
+																	th:onchange="'onChangeTipoDoc()'">
+																	<option selected value="0">Seleccione...</option>
+																	<option th:each="tipoDoc :${tipoDocs}"
+																		th:text="${tipoDoc.tipoDocumento}"
+																		th:value="${tipoDoc.idTipoDocumento}"></option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-12">
+															<button id="onAddDoc" th:onclick="addDocument(event)"
+																class="btn btn-default" style="float: right;">Agregar</button>
+														</div>
+													</div>
+												</div>
+												<hr>
+												<div class="col-md-12">
+													<div class="row">
+														<hr />
+														<h4 class="info-text">¿Cuáles son tus habilidades
+															técnicas?</h4>
+														<hr />
+														<div class="col-md-12" id="habilities_box" style="display:none">
+															<h3>Habilidades Elegidas</h3>
+															<hr>
+															<div id="badges"></div>
+															<hr>
+														</div>
+														<div class="col-md-12">
+															<label>Àrea Laboral</label> <select id="categoria_puesto"
+																name="categoria_puesto" class="form-control"
+																th:onchange="'onSelectCategory(event)'">
+																<option selected value="0">Seleccione...</option>
+																<option th:each="category :${categories}"
+																	th:text="${category.nombreCategoriaPuesto}"
+																	th:value="${category.idCategoriaPuesto}"></option>
+															</select>
+														</div>
+														
+														<div class="col-md-12" style="margin-top:1.5%">
+														<label>Nivel de dominio</label>
+															<div class="btn-group btn-group-toggle"
+																data-toggle="buttons">
+																
+																<label th:each="dominio: ${dominios}" 
+																	   th:class="${dominio.idDominioHabilidad == 1 ? 'btn btn-default active':'btn btn-default'}" 
+																	   th:inline="text">[[${dominio.dominioHabilidad}]]<input type="radio" th:onchange="'addActiveClass(event)'" name="options" th:id="${dominio.idDominioHabilidad}"
+																		   autocomplete="off" th:value="${dominio.idDominioHabilidad}" />
+																</label>
+															</div>
+														</div>
+														<div id="habilities" class="col-md-12" style="margin-top:1.5%">
+															<div class="form-group">
+																<label>Habilidades</label> <select class="form-control"
+																	id="habilities_select">
+																	<option value="0">Seleccione...</option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-12"> 
+															<button class="btn btn-default" style="float:right;" id="addHab" th:onclick="onAddHability(event)">Agregar</button>
+														</div>
+													</div>
+												</div>
+												<hr>
+												<div class="col-md-12">
+													<div class="row">
+														<hr />
+														<h4 class="info-text">¿Cuáles son tus habilidades
+															lingüísticas?</h4>
+														<hr>
+														<div class="col-md-12" id="speakingHabilities_box" style="display:none">
+															<h3>Lenguas escogidas</h3>
+															<hr>
+															<div id="speakingBadges"></div>
+															<hr>
+														</div>
+														<div class="col-md-12" style="margin-top:1.5%">
+														<label>Nivel de dominio</label>
+															<div class="btn-group btn-group-toggle"
+																data-toggle="buttons">
+																
+																<label th:each="dominio: ${dominios}" 
+																	   th:class="${dominio.idDominioHabilidad == 1 ? 'btn btn-default active':'btn btn-default'}" 
+																	   th:inline="text">[[${dominio.dominioHabilidad}]]<input type="radio" 
+																	   th:onchange="'addActiveClass(event)'" name="speakingOptions" th:id="s+${dominio.idDominioHabilidad}"
+																		   autocomplete="off" th:value="${dominio.idDominioHabilidad}" />
+																</label>
+															</div>
+														</div>
+														<div id="speakingHabilities" class="col-md-12" style="margin-top:1.5%">
+															<div class="form-group">
+																<label>Idiomas</label> <select class="form-control"
+																	id="speakingHabilities_select">
+																	<option value="0">Seleccione...</option>
+																	<option th:each="language:${languages}" 
+																			th:text="${language.habilidad}" 
+																			th:value="${language.idHabilidad}"></option>
+																</select>
+															</div>
+														</div>
+														<div class="col-md-12"> 
+															<button class="btn btn-default" style="float:right;" id="addSpeakingHab" th:onclick="onAddSpeakingHability(event)">Agregar</button>
+														</div>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
 									<div class="tab-pane" id="address">
 										<div class="row">
 											<div class="col-sm-12">
-												<h4 class="info-text">Are you living in a nice area?</h4>
+												<h4 class="info-text">Hablanos sobre tu desempeño laboral</h4>´
+												<hr>
 											</div>
-											<div class="col-sm-7 col-sm-offset-1">
-												<div class="form-group">
-													<label>Street Name</label> <input type="text"
-														class="form-control" placeholder="5h Avenue">
-												</div>
+											<div class="col-md-12">
+												<h4>Experiencias Laborales</h4>
+												<hr>
+												
 											</div>
-											<div class="col-sm-3">
-												<div class="form-group">
-													<label>Street Number</label> <input type="text"
-														class="form-control" placeholder="242">
-												</div>
-											</div>
-											<div class="col-sm-5 col-sm-offset-1">
-												<div class="form-group">
-													<label>City</label> <input type="text" class="form-control"
-														placeholder="New York...">
-												</div>
-											</div>
-											<div class="col-sm-5">
-												<div class="form-group">
-													<label>Country</label><br> <select name="country"
-														class="form-control">
-														<option value="Afghanistan">Afghanistan</option>
-														<option value="Albania">Albania</option>
-														<option value="Algeria">Algeria</option>
-														<option value="American Samoa">American Samoa</option>
-														<option value="Andorra">Andorra</option>
-														<option value="Angola">Angola</option>
-														<option value="Anguilla">Anguilla</option>
-														<option value="Antarctica">Antarctica</option>
-														<option value="...">...</option>
-													</select>
-												</div>
-											</div>
+											
+											
 										</div>
 									</div>
 								</div>
@@ -364,5 +545,14 @@
 <script th:src="@{/js/gsdk-bootstrap-wizard.js}"></script>
 <!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
 <script th:src="@{/js/jquery.validate.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.mask.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#telefono").mask("0000-0000");
+		$("#telefono_form").mask("0000-0000");
+		$("#dui").mask("00000000-0");
+		$("#nit").mask("0000-000000-000-0");
+	});
+</script>
 
 </html>

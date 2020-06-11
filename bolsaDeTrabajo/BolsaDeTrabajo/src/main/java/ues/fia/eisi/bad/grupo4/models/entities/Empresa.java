@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
@@ -51,6 +53,10 @@ public class Empresa implements Serializable{
 	@Size(max = 500)
 	@Column(name = "DESCRIPCION_EMPRESA")
 	private String descripcionEmpresa;
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name="ID_USUARIO")
+	private Usuario usuario;
 	
 	public Empresa() {
 		
@@ -103,7 +109,12 @@ public class Empresa implements Serializable{
 	public void setDescripcionEmpresa(String descripcionEmpresa) {
 		this.descripcionEmpresa = descripcionEmpresa;
 	}
-	
-	
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 }

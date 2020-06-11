@@ -1,8 +1,15 @@
 var empresa = {};
 var ban = false;
 var formaciones = [];
+var logros = [];
+var documentos = [];
+var badges = [];
+var persona = {};
+var redesSociales = {};
 
 var idGenerator = 0;
+var idLogro = 0;
+var idDoc = 0;
 /**
  * Función para obtener los datos de una empresa seleccionada, recibe el id de
  * la empresa y un parametro opcion para determinar si es consulta o edicion.
@@ -405,6 +412,30 @@ function onChangeTipoFormacion() {
 }
 
 /**
+ * metodo para mostrar los campos para agregar isbn y edicion
+ * @returns
+ */
+function onChangeTipoDoc(){
+	var value = $("#tipo_doc").val();
+	if(value == 1){
+		$("#auxLibro").after('<div id="removableDiv">'
+						+	'<div class="col-md-6">'
+						+	'<div class="form-group">'
+						+	'<label>ISBN</label>'
+						+	'<input class="form-control" type="text" id="isbn" />'
+						+	'</div></div>'
+						+	'<div class="col-md-6">'
+						+	'<div class="form-group">'
+						+	'<label>Edición</label>'
+						+	'<input class="form-control" type="text" id="edicionLibro"/>'
+						+	'</div></div></div>');
+		
+	} else {
+		$("#removableDiv").remove();
+	}
+}
+
+/**
  * funcion para agregar eduacion al cv
  * 
  * @returns
@@ -454,21 +485,272 @@ function addEducation(event) {
 	$("#email_form").val("");
 	$("#codigo").val("");
 	
+	objeto = {
+			formaciones: formaciones
+	}
+	
 	$.ajax({
 		url: "/curriculo/array",
 		type: "POST",
 		contentType: 'application/json;charset=UTF-8',
-		data: JSON.stringify(formaciones),
+		data: JSON.stringify(objeto),
 		success:function(res){
 			console.log(res);
 		}
-	})
+	});
 }
 
-function onRemove(event,f) {
+/**
+ * funcion para eliminar una fila de la tabla de formación academica.
+ * @param event
+ * @returns
+ */
+function onRemove(event) {
 	event.preventDefault();
 	$(event.target).parent().parent().remove();
 	var id = $(event.target).parent().parent().data();
 	var nuevoArray = formaciones.filter(formacion => formacion.id != id.id);
 	formaciones = nuevoArray;
+}
+
+/**
+ * funcion para agregar un logro.
+ * @param event
+ * @returns
+ */
+function addLogro(event){
+	event.preventDefault();
+
+	idLogro++;
+	logro = {
+		id:idLogro,
+		logro : $("#logro").val(),
+		fecha_logro : $("#fechaLogro").val(),
+		descripcion : $("#descripcionLogro").val()
+	};
+
+	logros.push(logro);
+	$("#auxBodyLogro")
+			.append(
+					'<tr id="filaLogro'
+							+ idLogro
+							+ '" data-idLogro="'+idLogro+'"><td>'
+							+ logro.logro
+							+ '</td>'
+							+ '<td>'
+							+ logro.fecha_logro
+							+ '</td>'
+							+ '<td><button class="btn btn-warning" id="button_logro" onclick="onRemoveLogro(event)">Remover</button></td></tr>');
+	$("#tabla_logros").removeAttr("style");
+	if (idLogro == 1) {
+		$("#tabla_logros").after('<hr/>');
+	}
+
+	logro = {};
+	// Limpiando campos
+	$("#logro").val(""),
+	$("#fechaLogro").val(""),
+	$("#descripcionLogro").val("")
+}
+
+/**
+ * funcion para eliminar un logro del arreglo de logros.
+ * @param event
+ * @returns
+ */
+function onRemoveLogro(event){
+	event.preventDefault();
+	$(event.target).parent().parent().remove();
+	var id = $(event.target).parent().parent().data();
+	console.log(id);
+	var nuevoArray = logros.filter(logro => logro.id != id.idlogro);
+	logros = nuevoArray;
+}
+
+/**
+ * funcion para agregar un libro al perfil del profesional.
+ * @param event
+ * @returns
+ */
+function addDocument(event){
+	event.preventDefault();
+
+	idDoc++;
+	documento = {
+		id:idDoc,
+		tituloDoc : $("#titulo_libro").val(),
+		fecha_doc : $("#fechaLibro").val(),
+		lugar_doc : $("#lugarLibro").val(),
+		ibsn	  : $("#isbn").val(),
+		edicion	  : $("#edicionLibro").val()
+	};
+
+	documentos.push(documento);
+	$("#auxBodyLibros")
+			.append(
+					'<tr id="filaLibro'
+							+ idDoc
+							+ '" data-idDoc="'+idDoc+'"><td>'
+							+ documento.tituloDoc
+							+ '</td>'
+							+ '<td>'
+							+ documento.fecha_doc
+							+ '</td>'
+							+ '<td><button class="btn btn-warning" id="button_doc" onclick="onRemoveDoc(event)">Remover</button></td></tr>');
+	$("#tabla_libros").removeAttr("style");
+	if (idDoc == 1) {
+		$("#tabla_libros").after('<hr/>');
+	}
+
+	documento = {};
+	// Limpiando campos
+	$("#titulo_libro").val(""),
+	$("#fechaLibro").val(""),
+	$("#lugarLibro").val("")
+}
+
+/**
+ * metodo para remover un elemento de la tabla de documentos
+ * @param event
+ * @returns
+ */
+function onRemoveDoc(event){
+	event.preventDefault();
+	$(event.target).parent().parent().remove();
+	var id = $(event.target).parent().parent().data();
+	console.log(id);
+	console.log(documentos)
+	var nuevoArray = documentos.filter(doc => doc.id != id.iddoc);
+	documentos = nuevoArray;
+	console.log(documentos)
+}
+
+/**
+ * funcion para enviar los datos del perfil del personal.
+ * @returns
+ */
+function onCreateProfesionalProfile(){
+	persona = {
+			nombre : $("#firstname").val(),
+			apellido : $("#lastname").val(),
+			email : $("#email").val(),
+			telefono : $("#telefono").val(),
+			direccion : $("#direccion").val(),
+			fechaNac : $("#date_of_birth").val(),
+			dui : $("#dui").val(),
+			nit : $("#nit").val(),
+			pasaporte : $("#pasaporte").val(),
+			nup : $("#nup").val()
+	};
+	
+	redesSociales = {
+			facebook: $("#Facebook").val(),
+			twitter: $("$Twitter").val(),
+			instagram: $("#Instagram").val(),
+			linkedln: $("#Linkedln").val
+	};
+	
+	
+}
+
+/**
+ * metodo para obtener las habilidades de una categoria seleccionada
+ * @returns
+ */
+function onSelectCategory(event){
+	event.preventDefault();
+	var idCategoria = $("#categoria_puesto").val();
+	
+	$.ajax({
+		url: "/curriculo/getSkills",
+		type: "POST",
+		data: {id:idCategoria},
+		success: function(res){
+			console.log(res);
+			$("#habilities_select").empty();
+			$("#habilities_select").append('<option value="0">Seleccione...</option>');
+			for(var i = 0; i < res.length; i++){
+				$("#habilities_select").append('<option value="'+res[i]['idHabilidad']+'">' + res[i]['habilidad'] 
+											+  '</option>');
+			}
+		}
+	})
+}
+
+/**
+ * funcion para agregar una clase a los radio button de estilo botton.
+ * @param event
+ * @returns
+ */
+function addActiveClass(event){
+	event.preventDefault();
+	$($(".back-color-checked")[0]).removeClass("back-color-checked");
+	//$($("input[name='options']:checked").parent()[0]).addClass("back-color-checked");
+	$(event.target).parent().addClass("back-color-checked");
+}
+
+/**
+ * funcion para agregar una habilidad al perfil profesional.
+ * @param event
+ * @returns
+ */
+function onAddHability(event){
+	event.preventDefault();
+	var hability = $("#habilities_select option:selected").text();
+	var dominio = $($("input[name='options']:checked")).parent().text();
+	
+	if(hability != "" && dominio != ""){
+		$("#habilities_box").removeAttr("style");
+		$("#badges").append('<button type="button" data-id="'+$("#habilities_select").val()+'" onclick="removeBadge(event)" class="btn btn-success">'+hability+' | '+dominio+' <span class="badge">&times;</span></button>');
+		var badge = {
+				habilityId: $("#habilities_select").val(),
+				habilityName: hability,
+				dominioId: $($("input[name='options']:checked")).val(),
+				domninioName: dominio
+		};
+		
+		badges.push(badge);
+	}
+}
+
+/**
+ * funcion para remover una habilidad del perfil profesional.
+ * @param event
+ * @returns
+ */
+function removeBadge(event){
+	event.preventDefault();
+	$(event.target).remove();
+	console.log(typeof($(event.target)))
+	var id = $(event.target).data();
+	var nuevoArray = badges.filter(badges => badges.habilityId != id.id);
+	badges = nuevoArray;
+}
+
+function onAddSpeakingHability(event){
+	event.preventDefault();
+	var hability = $("#speakingHabilities_select option:selected").text();
+	var dominio = $($("input[name='speakingOptions']:checked")).parent().text();
+	
+	if(hability != "" && dominio != ""){
+		$("#speakingHabilities_box").removeAttr("style");
+		$("#speakingBadges").append('<button type="button" data-id="'+$("#speakingHabilities_select").val()+'" onclick="removeSpeakingBadge(event)" class="btn btn-success">'+hability+' | '+dominio+' <span class="badge">&times;</span></button>');
+		var badge = {
+				habilityId: $("#speakingHabilities_select").val(),
+				habilityName: hability,
+				dominioId: $($("input[name='speakingOptions']:checked")).val(),
+				domninioName: dominio
+		};
+		
+		badges.push(badge);
+	}
+}
+
+function removeSpeakingBadge(event){
+	event.preventDefault();
+	$(event.target).remove();
+	console.log(typeof($(event.target)))
+	var id = $(event.target).data();
+	var nuevoArray = badges.filter(badges => badges.habilityId != id.id);
+	badges = nuevoArray;
 }

@@ -18,4 +18,5 @@ public interface GenericDao <T extends Serializable>{
 	public Object jpqlUniqueResult(final String jqpl, Long id);
 	public int sqlExecution(final String sql);
 	public void createAny(final Object object);
+	public Object getUniqueValue(final String sql, final Map<String,Object> params);
 }

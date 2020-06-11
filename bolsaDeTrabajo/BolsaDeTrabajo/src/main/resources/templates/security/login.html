@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+<meta charset="utf-8">
+<title>Iniciar Sesión</title>
+<!-- Bootstrap core CSS -->
+  <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/small-business.css}" rel="stylesheet">
+  <link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body class="bg">
+	<nav th:replace="index.html :: navIndexPage"></nav>
+	<div class="container" id="login-container">
+		<div class="row" style="margin-top: 1.5%;">
+			<div class="col-md-12">
+				<h4>Iniciar Sesión</h4>
+			</div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-md-12">
+				<form id="login_form">
+					<div class="form-group">
+						<labe>Usuario</labe>
+						<input id="username" name="username" class="form-control" 
+							   type="text" placeholder="Ejemplo: Alberto95" />
+					</div>
+					<div class="form-group">
+						<label>Contraseña</label>
+						<input type="password" id="password" name="password" 
+							   class="form-control" placeholder="*******"/>
+					</div>
+					<div class="form-group">
+						<label>Olvidó su contraseña</label><br>
+						<a th:href="@{/password-recovery}">Clic aquí</a>
+					</div>
+					<hr>
+					<button id="btn_login" class="btn btn-primary">Ingresar</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+</html>

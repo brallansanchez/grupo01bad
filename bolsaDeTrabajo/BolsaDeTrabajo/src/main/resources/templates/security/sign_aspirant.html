@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Registro de Aspirante</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+
+<!-- Custom styles for this template -->
+<link th:href="@{/css/small-business.css}" rel="stylesheet">
+<link th:href="@{/css/styles.css}" rel="stylesheet">
+</head>
+<body class="bg">
+	<nav th:replace="index.html :: navIndexPage"></nav>
+	<div id="aspirant_container"
+		class="container py-3 my-3 border rounded shadow-sm">
+		<h4>Formulario de Registro</h4>
+		<hr>
+		<div class="row">
+			<section class="col-12">
+				<ul class="nav nav-tabs flex-nowrap" role="tablist">
+					<li role="presentation" class="nav-item"><a href="#step1"
+						class="nav-link active" data-toggle="tab" aria-controls="step1"
+						role="tab" title="Step 1"> Datos Personales </a></li>
+					<li role="presentation" class="nav-item"><a href="#step2"
+						class="nav-link disabled" data-toggle="tab" aria-controls="step2"
+						role="tab" title="Step 2"> Creación de Usuario </a></li>
+					<li role="presentation" class="nav-item"><a href="#step3"
+						class="nav-link disabled" data-toggle="tab" aria-controls="step3"
+						role="tab" title="Step 3"> Foto de Perfil </a></li>
+					<li role="presentation" class="nav-item"><a href="#complete"
+						class="nav-link disabled" data-toggle="tab"
+						aria-controls="complete" role="tab" title="Complete">
+							Finalizar </a></li>
+
+				</ul>
+				<form role="form">
+					<div class="tab-content py-2">
+						<div class="tab-pane active" role="tabpanel" id="step1">
+							<h3>Llene todos los campos marcados con '*'</h3>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Nombres *</label> <input type="text" class="form-control"
+											id="names" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Apellidos *</label> <input type="text"
+											class="form-control" id="lastname" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Sexo *</label>
+										<select class="form-control" id="genero">
+											<option value="0">Seleccione...</option>
+											<option th:each="genero:${generos}" th:value="${genero.idSexoPersona}"
+											th:switch="${genero.sexoPersona}">
+											<span th:case="'F'">Femenino</span>
+											<span th:case="'M'">Masculino</span>
+											<span th:case="'I'">Indiferente</span>
+											</option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Rango de Experiencia *</label>
+										<select class="form-control" id="rangoExp">
+											<option value="0">Seleccione...</option>
+											<option th:each="rango:${rangosExp}" th:text="${rango.rangoExperiencia}"
+													th:value="${rango.idRangoExperiencia}"></option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Email *</label>
+										<input type="email" class="form-control" id="email" 
+											   th:onblur="'onCheckUnique(event)'"
+											   aria-describedby="emailHelp"/>
+										<small id="emailHelp" class="form-text text-muted uniqueMessage">Este correo electrónico ya esta registrado.</small>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Fecha Nacimiento *</label>
+										<input type="date" class="form-control" id="date_of_birth" />
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>País *</label>
+										<select class="form-control" id="countries" th:onchange="'onSelectCountry(event)'">
+											<option value="0" selected>Seleccione...</option>
+											<option th:each="pais:${paises}" th:text="${pais.nombrePais}"
+													th:value="${pais.idPais}"></option>
+										</select>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Ubicación exacta *</label>
+										<select class="form-control" id="ubicaciones">
+											<option value="0">Seleccione...</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Dui</label>
+										<input type="text" placeholder="00000000-0" class="form-control" id="dui" 
+											   th:onblur="'onCheckUnique(event)'"
+											   aria-describedby="duiHelp"
+											   />
+										<small id="duiHelp" class="form-text text-muted uniqueMessage">Este número de dui ya esta registrado.</small>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Nit</label>
+										<input type="text" placeholder="0000-000000-000-0" class="form-control" id="nit"
+											   th:onblur="'onCheckUnique(event)'" 
+											   aria-describedby="nitHelp"/>
+										<small id="nitHelp" class="form-text text-muted uniqueMessage">Este número de nit ya esta registrado.</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Pasaporte</label>
+										<input type="text" placeholder="Indicación: Solo si es extranjero" 
+											   class="form-control" id="pasaporte" 
+											   th:onblur="'onCheckUnique(event)'"
+											   aria-describedby="pasaporteHelp"/>
+										<small id="pasaporteHelp" class="form-text text-muted uniqueMessage">Este pasaporte ya esta registrado.</small>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Nup</label>
+										<input type="text" placeholder="000000000000000" 
+											   class="form-control" id="nup" 
+											   th:onblur="'onCheckUnique(event)'"
+											   aria-describedby="nupHelp"/>
+										<small id="nupHelp" class="form-text text-muted uniqueMessage">Este nup ya esta registrado.</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Teléfono *</label>
+										<input type="tel" placeholder="0000-0000" 
+											   class="form-control" id="telefono" />
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Dirección *</label>
+										<textarea id="direccion" class="form-control"
+												  cols="30" rows="1"
+										></textarea>
+									</div>
+								</div>
+							</div>
+							<button type="button"
+								class="btn btn-primary next-step float-right">Siguiente</button>
+						</div>
+						<div class="tab-pane" role="tabpanel" id="step2">
+							<h3>Llene todos los campos marcados con '*'</h3>
+							<div class="row" id="indicaciones" style="display: none">
+								<div class="col-md-12">
+									<div class="alert alert-danger" role="alert">
+  										<h5>La contraseña debe contener</h5>
+  										<ul>
+  											<li>Una letra minúscula</li>
+  											<li>Una letra mayúscula</li>
+  											<li>Un caracter especial -> #?!@$%^&*-</li>
+  											<li>Una longitud de 8 carácteres</li>
+  											<li>Al menos un número</li>
+  										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Nombre de Usuario *</label> <input type="text" class="form-control"
+											id="username" th:onblur="'onCheckUnique(event)'"
+											aria-describedby="userHelp"/>
+											<small id="userHelp" class="form-text text-muted uniqueMessage">Este usuario no está disponible.</small>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Contraseña *</label> <input type="password"
+											class="form-control" id="password" />
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>Contraseña (De nuevo) *</label> <input type="password"
+											class="form-control" id="repeatPassword" />
+									</div>
+								</div>
+							</div>
+							<ul class="float-right">
+								<li class="list-inline-item">
+									<button type="button" class="btn btn-outline-primary prev-step">Regresar</button>
+								</li>
+								<li class="list-inline-item">
+									<button type="button" class="btn btn-primary next-step">Guardar y continuar</button>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane" role="tabpanel" id="step3">
+							<h3>Añada una foto de perfil</h3>
+							<p>Este paso es opcional</p>
+							<ul class="float-right">
+								<li class="list-inline-item">
+									<button type="button" class="btn btn-outline-primary prev-step">Regresar</button>
+								</li>
+								<li class="list-inline-item">
+									<button type="button" class="btn btn-outline-primary next-step">Omitir</button>
+								</li>
+								<li class="list-inline-item">
+									<button type="button"
+										class="btn btn-primary btn-info-full next-step">Guargar y continuar</button>
+								</li>
+							</ul>
+						</div>
+						<div class="tab-pane" role="tabpanel" id="complete">
+							<h3>Listo!</h3>
+							<p>De clic en finalizar para crear su perfil.</p>
+							<button type="button" th:onclick="'onCreateAccount(event)'"
+								class="btn btn-primary float-right">Finalizar</button>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</form>
+			</section>
+		</div>
+	</div>
+</body>
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/aspirant_js.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.mask.js}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#countries").val("0");
+		$("#telefono").mask("0000-0000");
+		$("#dui").mask("00000000-0");
+		$("#nit").mask("0000-000000-000-0");
+	});
+</script>
+
+</html>

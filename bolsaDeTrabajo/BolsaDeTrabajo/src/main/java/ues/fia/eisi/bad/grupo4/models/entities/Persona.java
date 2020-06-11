@@ -9,6 +9,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -61,7 +64,7 @@ public class Persona implements Serializable{
 	private String pasaportePersona;
 	
 
-	@Basic(optional = false)
+	@Basic(optional = true)
 	@Column(name = "NUP_PERSONA")
 	private String nupPersona;
 	
@@ -74,6 +77,22 @@ public class Persona implements Serializable{
 	@Basic(optional = false)
 	@Column(name = "TELEFONO_PERSONA")
 	private String telefonoPersona;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name="ID_SEXO_PERSONA")
+	private SexoPersona sexoPersona;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "ID_DIVISION")
+	private DivisionGeografica paisResidencia;
+	
+	@ManyToOne(optional = false)
+	@JoinColumn(name="ID_RANGO_EXPERIENCA")
+	private RangoExperiencia rangoExperiencia;
+	
+	@OneToOne(optional = false)
+	@JoinColumn(name="ID_USUARIO")
+	private Usuario usuario;
 	
 	public Persona() {
 		
@@ -165,6 +184,38 @@ public class Persona implements Serializable{
 
 	public void setTelefonoPersona(String telefonoPersona) {
 		this.telefonoPersona = telefonoPersona;
+	}
+
+	public SexoPersona getSexoPersona() {
+		return sexoPersona;
+	}
+
+	public void setSexoPersona(SexoPersona sexoPersona) {
+		this.sexoPersona = sexoPersona;
+	}
+
+	public DivisionGeografica getPaisResidencia() {
+		return paisResidencia;
+	}
+
+	public void setPaisResidencia(DivisionGeografica paisResidencia) {
+		this.paisResidencia = paisResidencia;
+	}
+
+	public RangoExperiencia getRangoExperiencia() {
+		return rangoExperiencia;
+	}
+
+	public void setRangoExperiencia(RangoExperiencia rangoExperiencia) {
+		this.rangoExperiencia = rangoExperiencia;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

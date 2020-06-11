@@ -84,4 +84,18 @@ public abstract class AbstractGenericDao<T extends Serializable> {
 	public void createAny(Object object) {
 		entityManager.persist(object);
 	}
+	
+	@Transactional
+	public Object getUniqueValue(String sql, Map<String,Object> params) {
+		javax.persistence.Query query = entityManager.createNativeQuery(sql);
+		
+		if(params.isEmpty()) {
+			return ((Number)query.getSingleResult()).intValue();
+		}
+		
+		for (Map.Entry<String,Object> entry : params.entrySet()) {
+			query.setParameter(entry.getKey(),entry.getValue());
+		}
+		return query.getSingleResult();
+	}
 }
