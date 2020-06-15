@@ -52,7 +52,33 @@ public class MainController {
 	public String loginIn() {
 		return "security/login";
 	}
-
+	
+	@PostMapping("checkUserAndPass")
+	public @ResponseBody String onCheckUser(@RequestParam Map<String,String> params) {
+		
+		String response = "exito";
+		String user = params.get("username");
+		String pass = params.get("password");
+		
+		Map<String,Object> valores = new HashMap<String,Object>();
+		valores.put("username", user);
+		
+		String jpqlUser = "from Usuario u where u.nombreUsuario = :username";
+		Usuario usuario = (Usuario) service.jpqlParamsUniqueQuery(jpqlUser, valores);
+		if(usuario != null) {
+			if(usuario.getPassword().equals(DigestUtils.sha1Hex(pass))) {
+				
+			} else {
+				usuario.setIntentosFallidos((short) (usuario.getIntentosFallidos() + 1));
+				service.updateAny(usuario);
+				response = "invalida";
+			}
+		} else {
+			response = "fracaso";
+		}
+		return response;
+	}
+	
 	@GetMapping("password-recovery")
 	public String forgorPassword() {
 		return "security/passwordRecovery";
@@ -219,5 +245,4 @@ public class MainController {
 		System.out.println(res);
 		return res;
 	}
-
 }

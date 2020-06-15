@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "TIPO_CONTRATACION")
@@ -29,6 +30,7 @@ public class TipoContrato implements Serializable{
 	
 	@Column(name="NOMBRE_TIPO_CONTRATO")
 	@Basic(optional = false)
+	@NotEmpty
 	private String nombreTipoContrato;
 	
 	public TipoContrato() {

@@ -6,6 +6,7 @@ import java.util.Map;
 
 import javax.management.Query;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -68,6 +69,20 @@ public abstract class AbstractGenericDao<T extends Serializable> {
 	}
 	
 	@Transactional
+	public Object jpqlParamsUniqueQuery(String jpql, Map<String,Object> params) {
+		TypedQuery query = (TypedQuery) entityManager.createQuery(jpql);
+		for (Map.Entry<String,Object> entry : params.entrySet()) {
+			query.setParameter(entry.getKey(),entry.getValue());
+		}
+		try {
+			return query.getSingleResult();
+		}catch(NoResultException ex) {
+			return null;
+		}
+		
+	}
+	
+	@Transactional
 	public Object jpqlUniqueResult(String jpql, Long id) {
 		TypedQuery query = (TypedQuery) entityManager.createQuery(jpql);
 		query.setParameter("id", id);
@@ -83,6 +98,12 @@ public abstract class AbstractGenericDao<T extends Serializable> {
 	@Transactional
 	public void createAny(Object object) {
 		entityManager.persist(object);
+	}
+	
+	@Transactional
+	public void updateAny(Object object) {
+		entityManager.merge(object);
+		entityManager.flush();
 	}
 	
 	@Transactional

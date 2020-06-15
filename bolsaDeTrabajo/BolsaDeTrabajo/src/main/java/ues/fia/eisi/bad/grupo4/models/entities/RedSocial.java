@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="RED_SOCIAL")
@@ -29,7 +30,8 @@ public class RedSocial implements Serializable{
 	
 	@Column(name="NOMBRE_RED_SOCIAL")
 	@Basic(optional=false)
-	private String nombreRedSocail;
+	@NotEmpty
+	private String nombreRedSocial;
 	
 	public RedSocial() {
 		
@@ -43,11 +45,11 @@ public class RedSocial implements Serializable{
 		this.idRedSocial = idRedSocial;
 	}
 
-	public String getNombreRedSocail() {
-		return nombreRedSocail;
+	public String getNombreRedSocial() {
+		return nombreRedSocial;
 	}
 
-	public void setNombreRedSocail(String nombreRedSocail) {
-		this.nombreRedSocail = nombreRedSocail;
+	public void setNombreRedSocial(String nombreRedSocial) {
+		this.nombreRedSocial = nombreRedSocial;
 	}
 }

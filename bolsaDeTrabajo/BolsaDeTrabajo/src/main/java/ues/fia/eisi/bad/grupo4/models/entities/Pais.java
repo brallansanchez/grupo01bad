@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="PAIS")
@@ -29,6 +30,7 @@ public class Pais implements Serializable{
 	
 	@Column(name="NOMBRE_PAIS")
 	@Basic(optional=false)
+	@NotEmpty
 	private String nombrePais;
 	
 	public Pais() {

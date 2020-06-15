@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/empresa_layout.html :: head">
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="fragments/empresa_layout.html :: sidebar"></div>
+
+		<div class="main-panel">
+			<nav th:replace="fragments/empresa_layout.html :: navbar"></nav>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card strpied-tabled-with-hover">
+								<div class="card-header ">
+									<h4 class="card-title">Gestión de paises registrados</h4>
+									<p class="card-category">JobFinder</p>
+								</div>
+
+								<div class="row">
+									<div class="col-md-12" style="text-align: center;">
+										<hr style="border: width:100%" />
+										<a th:href="@{/sesion/admin/pais/create}"
+											class="btn btn-primary" style="width: 20%" id="addBtn">Agregar
+											Registro</a>
+										<hr style="border: width:100%" />
+									</div>
+
+									<div class="col-md-12" th:if="${success != null}">
+										<div class="alert alert-success alert-dismissible fade show"
+										role="alert">
+											<strong th:text="${success}"></strong>
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									</div>
+									
+									<div class="col-md-12" th:if="${error != null}">
+										<div class="alert alert-danger alert-dismissible fade show"
+										role="alert">
+											<hr style="border: width:100%" />
+											<strong th:text="${error}"></strong>
+											<button type="button" class="close" data-dismiss="alert"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+											<hr style="border: width:100%" />
+										</div>
+									</div>
+								</div>
+
+								<div class="card-body table-full-width table-responsive">
+									<table class="table table-hover table-striped">
+										<thead>
+											<th>ID</th>
+											<th style="width:60%">Nombre País</th>
+											<th style="width:20%">Acciones</th>
+										</thead>
+										<tbody>
+											<tr th:each="pais :${paises}">
+												<td th:text="${pais.idPais}"></td>
+												<td th:text="${pais.nombrePais}"></td>
+												<td>
+													<div class="dropdown mr-1">
+														<button type="button"
+															class="btn btn-default dropdown-toggle"
+															id="dropdownMenuOffset" data-toggle="dropdown"
+															aria-haspopup="true" aria-expanded="false"
+															data-offset="10,20">Acciones</button>
+														<div class="dropdown-menu"
+															aria-labelledby="dropdownMenuOffset">
+															<a
+																th:href="@{/sesion/admin/pais/ver/} + ${pais.idPais}"
+																class="dropdown-item">Consultar</a> <a
+																th:href="@{/sesion/admin/pais/editar/} + ${pais.idPais}"
+																class="dropdown-item">Editar</a> <a
+																th:href="@{/sesion/admin/pais/eliminar/} + ${pais.idPais}"
+																class="dropdown-item"
+																onclick="return confirm('¿Está seguro de eliminar este registro?')">Eliminar</a>
+														</div>
+
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="fragments/empresa_layout.html :: footer"></footer>
+		</div>
+	</div>
+	<div th:replace="fragments/empresa_layout.html :: scripts"></div>
+</body>
+</html>

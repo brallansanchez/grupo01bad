@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="RANGO_EXPERIENCIA")
@@ -29,6 +30,7 @@ public class RangoExperiencia implements Serializable{
 	
 	@Column(name="RANGO_EXPERIENCIA")
 	@Basic(optional = false)
+	@NotEmpty
 	private String rangoExperiencia;
 	
 	public RangoExperiencia() {

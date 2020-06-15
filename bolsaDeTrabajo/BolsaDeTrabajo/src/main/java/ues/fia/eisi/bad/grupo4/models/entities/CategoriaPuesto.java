@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="CATEGORIA_PUESTO")
@@ -29,6 +31,8 @@ public class CategoriaPuesto implements Serializable{
 	
 	@Column(name="NOMBRE_CATEGORIA_PUESTO")
 	@Basic(optional=false)
+	@NotEmpty
+	@Size(min=3, max=35)
 	private String nombreCategoriaPuesto;
 	
 	public CategoriaPuesto() {

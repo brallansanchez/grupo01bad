@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/empresa_layout.html :: head">
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="fragments/empresa_layout.html :: sidebar"></div>
+
+		<div class="main-panel">
+			<nav th:replace="fragments/empresa_layout.html :: navbar"></nav>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Crear Nuevo Rango de Edades</h4>
+								</div>
+								<div class="card-body">
+									<form method="post" 
+										  th:action="@{/sesion/admin/rangoedad/create}" 
+										  th:object="${rango}">
+										  
+										<div class="row">
+											
+											<div class="col-md-3 px-1">
+												<div class="form-group">
+													<label>Rango Edad</label><input type="text"
+														class="form-control" placeholder="Ej: entre 25 - 50 años" 
+														th:field="*{rangoEdad}"
+														th:errorclass="'form-control error-field'">
+												</div>
+											</div>
+											
+											<div class="col-md-4 alert alert-danger" 
+												 th:if="${#fields.hasErrors('rangoEdad')}"
+												 th:errors="*{rangoEdad}"></div>
+											
+										</div>
+										<a type="button" th:href="@{/sesion/admin/rangoedad}" 
+										   class="btn btn-danger btn-fill pull-right"
+										   style="margin-left:1.0%">Cancelar</a>
+										<button type="submit" class="btn btn-info btn-fill pull-right">Guardar</button>
+										<div class="clearfix"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="fragments/empresa_layout.html :: footer"></footer>
+		</div>
+	</div>
+	<div th:replace="fragments/empresa_layout.html :: scripts"></div>
+</body>
+</html>

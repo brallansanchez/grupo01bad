@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head th:replace="fragments/empresa_layout.html :: head">
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="wrapper">
+		<div th:replace="fragments/empresa_layout.html :: sidebar"></div>
+
+		<div class="main-panel">
+			<nav th:replace="fragments/empresa_layout.html :: navbar"></nav>
+			<div class="content">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header">
+									<h4 class="card-title">Ver País</h4>
+								</div>
+								<div class="card-body">
+									<form th:object="${pais}">
+										  
+										<div class="row">
+											
+											<div class="col-md-3 px-1">
+												<div class="form-group">
+													<label>Nombre País</label><input type="text"
+														class="form-control" placeholder="Ej: El Salvador"
+														th:field="*{nombrePais}" th:readonly="${readOnly}">
+												</div>
+											</div>
+											
+										</div>
+										<a type="button" th:href="@{/sesion/admin/pais}" 
+										   class="btn btn-danger btn-fill pull-right"
+										   style="margin-left:1.0%">Cancelar</a>
+										<div class="clearfix"></div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer th:replace="fragments/empresa_layout.html :: footer"></footer>
+		</div>
+	</div>
+	<div th:replace="fragments/empresa_layout.html :: scripts"></div>
+</body>
+</html>
