@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BolsaDeTrabajoApplication<BolsaDeTrabajo>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ues.fia.eisi.bad.grupo4.BolsaDeTrabajoApplication",
+            "projectName": "BolsaDeTrabajo",
+            "args": ""
+        }
+    ]
+}
