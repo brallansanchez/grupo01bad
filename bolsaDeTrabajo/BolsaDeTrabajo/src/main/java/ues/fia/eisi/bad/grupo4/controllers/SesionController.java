@@ -9,7 +9,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SesionController {
 
 	@GetMapping("/admin")
-	public String empresaSesion() {
+	public String adminSesion() {
 		return "sesiones/admin";
+	}
+	@GetMapping("/aspirant")
+	public String aspiranteSesion() {
+		return "sesiones/aspirant";
+	}
+	@GetMapping("/company")
+	public String empresaSesion() {
+		return "sesiones/company";
 	}
 }
