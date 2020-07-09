@@ -2,10 +2,13 @@ package ues.fia.eisi.bad.grupo4.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,11 +54,17 @@ public class OfertaController {
 		service.setClazz(OfertaLaboral.class);
 	}
 	
+	@PostConstruct
+	public void init() {
+		ofertas = new ArrayList<OfertaLaboral>();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@GetMapping("/")
 	public String index(Model model) {
 		this.ofertas = (List<OfertaLaboral>) service.jpqlQuery("from OfertaLaboral ol join fetch ol.categoria where ol.empresa.idEmpresa = 1");
-		model.addAttribute("ofertas",ofertas);
+		//model.addAttribute("ofertas",ofertas);
+		model.addAttribute("ofertas",this.getAllRecords());
 		
 		return "ofertas/ofertas";
 	}
@@ -218,4 +227,9 @@ public class OfertaController {
 		this.generos = (List<SexoPersona>) service.jpqlQuery(jpqlSexoPersona);
 		this.rangoEdades = (List<RangoEdad>) service.jpqlQuery(jpqlRangoEdad);
 	}
+	
+	private List<OfertaLaboral> getAllRecords(){
+		return service.findAll();
+	}
+	
 }
