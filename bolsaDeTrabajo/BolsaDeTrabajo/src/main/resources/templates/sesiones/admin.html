@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:replace = "fragments/admin_fragments.html :: head">
+<head th:replace = "fragments/admin_layout.html :: head">
 </head>
 <body>
-	<div class="d-flex" id="wrapper">
+	<div class="wrapper" id="wrapper">
 		<!-- Insertando sidebar -->
-		<div th:replace = "fragments/admin_fragments.html :: sidebar">
+		<div th:replace = "fragments/admin_layout.html :: sidebar">
 		</div>
 		
 		<!-- Page Content -->
+		<div class="main-panel">
 		<div id="page-content-wrapper">
 			<!-- Insertando navbar -->
-			<nav th:replace = "fragments/admin_fragments.html :: navbar">
+			<nav th:replace = "fragments/admin_layout.html :: navbar">
 			</nav>
 			
 			<!-- Contenido -->
+			<div class="content">
 			<div class="container-fluid">
 				<h1>Bienvenido</h1>
 			</div>
+			</div>
 			<!-- Fin del contenido -->
 		</div>
+		<footer th:replace="fragments/admin_layout.html :: footer"></footer>
 	</div>
-	<div th:replace="fragments/admin_fragments.html :: scripts"></div>
+	
+	</div>
+	<div th:replace="fragments/admin_layout.html :: scripts"></div>
 </body>
 </html>
